@@ -1,24 +1,24 @@
-# List Comprehension in Wireless Engineering
+# Python for Engineers
 
-This was a fun exercise to practice list comprehension in Python
-while keeping it relevant to wireless engineering calculations.
+This folder is about practicing core Python concepts using real
+wireless engineering problems instead of generic textbook examples.
 
-Instead of using boring examples like lists of names or numbers,
-I used real RF concepts — powers of 2 for digital systems,
-wavelengths for common 5G frequencies and free space path loss
-at different distances.
+## Files
 
-## What it covers
+### List_Comprehension.py
+Practicing list comprehension using RF calculations — powers of 2
+for digital modulation, wavelengths for common 5G frequencies and
+free space path loss at different distances.
 
-**a) Powers of 2** — first 20 powers, useful in digital modulation
-where bits per symbol follow powers of 2 (BPSK=1, QPSK=2, 16QAM=4...)
+### Subcarrier_Conflict_Detection.py
+Practicing Python sets using an OFDMA resource allocation problem.
+Two users share subcarriers and I used set operations to find conflicts,
+total occupied subcarriers and what can be freed up.
 
-**b) Wavelengths** — calculated for 900MHz, 1.8GHz, 2.4GHz, 3.5GHz and 28GHz
-using λ = c/f. You can clearly see how mmWave at 28GHz has a tiny
-wavelength compared to sub-6GHz bands.
-
-**c) Free Space Path Loss** — FSPL at 3.5GHz for distances from
-10m to 1000m. Shows how quickly signal attenuates over distance.
+## Why this approach
+Wireless engineering involves a lot of data processing and list manipulation.
+Learning Python this way makes it easier to connect the language to
+real problems I will face on the job.
 
 ## Author
 Pujan Thapa Magar
