@@ -5,6 +5,11 @@ wireless engineering problems instead of generic textbook examples.
 
 ## Files
 
+### power_functions.py
+Practicing the concept that dBm values cannot be added directly.
+Convert to Watts first, sum them up, then convert back to dBm.
+Classic RF mistake if you skip this step.
+
 ### list_comprehension.py
 Practicing list comprehension using RF calculations — powers of 2
 for digital modulation, wavelengths for common 5G frequencies and
