@@ -18,3 +18,4 @@ tdl_models = {
 for model, params in tdl_models.items():
     los = "Yes" if params["los"] else "No"
     print(f"{model} - delay spread: {params['delay_spread_ns']} ns, LOS: {los}")
+
