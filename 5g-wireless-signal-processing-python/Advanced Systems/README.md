@@ -1,6 +1,6 @@
 # Advanced Systems
 
-This folder is where things get more interesting. I built three simulations
+This folder is where things get more interesting. I built four simulations
 that connect the theoretical concepts from lectures to actual working code.
 Each one covers a core part of how modern 5G systems work under the hood.
 
@@ -16,6 +16,7 @@ not just what modulation is but how the bits actually become complex symbols,
 travel through a noisy channel and get decoded back on the other side.
 
 Supports three modulation schemes:
+
 | Scheme   | Bits per Symbol | Minimum SNR needed |
 |----------|-----------------|--------------------|
 | BPSK     | 1               | Low (~6 dB)        |
@@ -59,6 +60,37 @@ short range compared to sub-6 GHz.
 
 ---
 
+### 4. `water_filling.py` — Water-Filling Power Allocation for MIMO Eigenchannels
+
+After learning about SVD in MIMO systems I wanted to see how a base station
+actually decides how much power to put on each spatial stream. The answer is
+water-filling — pour more power into strong eigenchannels and turn off the
+weak ones entirely rather than wasting energy on them.
+
+The idea comes from the fact that after SVD the channel becomes parallel
+independent pipes with different qualities. If you split power equally across
+all of them you end up wasting a lot of it on pipes that are nearly blocked.
+Water-filling finds the optimal split by treating each 1/λ as the depth of a
+bucket and pouring water until the level is the same everywhere.
+
+Given eigenvalues [4.0, 1.0, 0.25, 0.01] and total power = 4, the algorithm
+progressively adds channels until the water level is low enough that the next
+channel would receive negative power. In this case only the top 2 channels
+are worth using:
+
+| Channel | λ (gain) | 1/λ (depth) | Power allocated | Status |
+|---------|----------|-------------|-----------------|--------|
+| 1       | 4.0      | 0.25        | 2.375           | ON     |
+| 2       | 1.0      | 1.00        | 1.625           | ON     |
+| 3       | 0.25     | 4.00        | 0.000           | OFF    |
+| 4       | 0.01     | 100.0       | 0.000           | OFF    |
+
+Compared to equal power allocation this gives about 30% more capacity with
+the same total transmit power — a good reminder that smarter signal processing
+often beats just throwing more power at the problem.
+
+---
+
 ## Concepts covered
 
 - Modulation and demodulation (BPSK, QPSK, 16QAM)
@@ -67,25 +99,17 @@ short range compared to sub-6 GHz.
 - Phased array steering vectors and beam patterns
 - Free Space Path Loss (FSPL)
 - SNR calculation and link budget analysis
+- SVD-based eigenchannel decomposition
+- Water-filling power allocation and channel capacity
 
 ---
 
 ## How to run
 
 Each file is standalone, just run directly:
+
 ```bash
 python modulator_demodulator.py
 python antenna_array.py
 python link_budget.py
-```
-
-No external libraries needed — only `math`, `cmath` and `random` from
-Python standard library.
-
----
-
-## Author
-Pujan Thapa Magar
-
-## Part of
-[5g-wireless-signal-processing-python](https://github.com/llegacythapa74/5g-wireless-signal-processing-python)
+python water_filling.py
